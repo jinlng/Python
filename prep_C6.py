@@ -76,6 +76,7 @@ for i in range(9, last_row+1):
 for i in range(9, last_row+1):
     if ws.cell(row=i, column=1).value is not None:
         # Fill in preset values in each line
+        ws.cell(row=i, column=3).value = adresse
         for col, value in {
             15: 'TER',
             23: '0',
@@ -95,15 +96,20 @@ for i in range(9, last_row+1):
         if cell_value in mapping_dict:
             ws.cell(row=i, column=2).value = mapping_dict[cell_value]
         # if anything wrong, assign it as non-usable
-        elif ws.cell(row=i, column=6).value in ['FEN', 'EPA', 'CHO', 'AUT']:
+        if ws.cell(row=i, column=6).value in ['FEN', 'EPA', 'CHO', 'AUT']:
             ws.cell(row=i, column=14).value = 'Non'
             for j in range(7, 14):
                 ws.cell(row=i, column=j).value = 'Oui'
-        elif ws.cell(row=i, column=13).value == 'Oui' or not ws.cell(row=i, column=6).value:
+        if ws.cell(row=i, column=13).value == 'Oui' or not ws.cell(row=i, column=6).value:
             for j in range(6, 15):
                 ws.cell(row=i, column=j).value = 'Oui'
-        elif not ws.cell(row=i, column=3).value or ws.cell(row=i, column=3).value == 'Adresse non trouvée':
-            ws.cell(row=i, column=3).value = adresse
+        # check for EDF pillar and potelet
+        if 'BT' in str(ws.cell(row=i, column=1).value):
+            ws.cell(row=i, column=2).value = 'EDF'
+        elif 'Ab' in str(ws.cell(row=i, column=1).value):
+            ws.cell(row=i, column=2).value = 'POT MIN'
+        else:
+            continue
     if ws.cell(row=i, column=19).value in ['L1092-11', 'L1092-13', 'L1092-14', 'L1092-15']:
         ws.cell(row=i, column=19).value = ws.cell(row=i, column=19).value + '-A'
         ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
