@@ -8,9 +8,9 @@ from coordinates_converter import l93_to_wgs84
 wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/BLM/31600/Tableau CAP FT.xlsx"
 
 # Define the commune name and INSEE code
-commune = "Dame-Marie"
-insee = '61142'
-adresse = "Lieu dit le Pommerais"
+commune = " "
+insee = ' '
+adresse = " "
 
 # Modification of the types
 mapping_dict = {
