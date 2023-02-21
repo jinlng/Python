@@ -12,36 +12,6 @@ commune = "Dame-Marie"
 insee = '61142'
 adresse = "Lieu dit le Pommerais"
 
-# Modification of the types
-mapping_dict = {
-    'FR07': 'FL7',
-    'FR 07': 'FL7',
-    'FR 7': 'FL7',
-    'FR08': 'FL8',
-    'FR 08': 'FL8',
-    'FR 8': 'FL8',
-    'FR7_CREATION': 'FL7',
-    'FR8_CREATION': 'FL8',
-    'CREATION_FC7 MAX': 'FC7 MAX',
-    'CREATION_FC7': 'FC7 MAX',
-    'CREATION_FC8 MAX': 'FC8 MAX',
-    'CREATION_FC8': 'FC8 MAX',
-    'CREATION_FR7': 'FL7',
-    'CREATION_FR8': 'FL8',
-    'CREATION_FL7': 'FL7',
-    'CREATION_FL8': 'FL8',
-    'CREATION_MI8': 'M28',
-    'CREATION_MI7': 'M27',
-    'MI8': 'M28',
-    'MI7': 'M27',
-    'BH6': 'BH6 S30',
-    'BH7': 'BH7 S30',
-    'MH7': 'MH7 S30',
-    'BH8': 'BH8 S30',
-    'MH8': 'MH8 S30',
-    'MR0': 'M20',
-    'BETON': 'EDF'
-}
 # Define the name of the worksheet to work with
 sheet_name = "Saisies terrain"
 
@@ -75,55 +45,52 @@ for i in range(9, last_row+1):
 # Fill in specific values
 for i in range(9, last_row+1):
     if ws.cell(row=i, column=1).value is not None:
-        # Fill in preset values in each line
-        for col, value in {
-            15: 'TER',
-            23: '0',
-            24: '15',
-            26: 'Oui',
-            27: 'Non',
-            35: 'Oui',
-            36: 'Non',
-            37: '0',
-            38: 'Non',
-            39: '0',
-            40: 'Non',
-        }.items():
-            ws.cell(row=i, column=col).value = value
-        # Replace type names
-        cell_value = ws.cell(row=i, column=2).value
-        if cell_value in mapping_dict:
-            ws.cell(row=i, column=2).value = mapping_dict[cell_value]
-        # if anything wrong, assign it as non-usable
-        elif ws.cell(row=i, column=6).value in ['FEN', 'EPA', 'CHO', 'AUT']:
-            ws.cell(row=i, column=14).value = 'Non'
-            for j in range(7, 14):
+        if ws.cell(row=i, column=6).value == 'FEN' or ws.cell(row=i, column=6).value == 'EPA' or ws.cell(row=i, column=6).value == 'CHO':
+            ws.cell(row=i, column=14).value == 'Non'
+            for j in range(7,14):
                 ws.cell(row=i, column=j).value = 'Oui'
-        elif ws.cell(row=i, column=13).value == 'Oui' or not ws.cell(row=i, column=6).value:
-            for j in range(6, 15):
+        elif ws.cell(row=i, column=6).value == 'AUT':
+            ws.cell(row=i, column=14).value == 'Non'
+            for j in range(7,14):
                 ws.cell(row=i, column=j).value = 'Oui'
-        elif not ws.cell(row=i, column=3).value or ws.cell(row=i, column=3).value == 'Adresse non trouvée':
+        elif ws.cell(row=i, column=13).value == 'Oui' or ws.cell(row=i, column=6).value is None:
+            for j in range(6,15):
+                ws.cell(row=i, column=j).value = 'Oui'
+        ws.cell(row=i, column=15).value = 'TER'
+        ws.cell(row=i, column=23).value = '0'
+        ws.cell(row=i, column=24).value = '15'
+        ws.cell(row=i, column=26).value = 'Oui'
+        ws.cell(row=i, column=27).value = 'Non'
+        ws.cell(row=i, column=35).value = 'Oui'
+        ws.cell(row=i, column=36).value = 'Non'
+        ws.cell(row=i, column=37).value = '0'
+        ws.cell(row=i, column=38).value = 'Non'
+        ws.cell(row=i, column=39).value = '0'
+        ws.cell(row=i, column=40).value = 'Non'
+        if ws.cell(row=i, column=3).value is None or ws.cell(row=i, column=3).value == 'Adresse non trouvée':
             ws.cell(row=i, column=3).value = adresse
+        if ws.cell(row=i, column=2).value == 'BH6':
+            ws.cell(row=i, column=2).value = 'BH6 S30'
+        elif ws.cell(row=i, column=2).value == 'BH7':
+            ws.cell(row=i, column=2).value = 'BH7 S30'
+        elif ws.cell(row=i, column=2).value == 'MH7':
+            ws.cell(row=i, column=2).value = 'MH7 S30'
+        elif ws.cell(row=i, column=2).value == 'BH8':
+            ws.cell(row=i, column=2).value = 'BH8 S30'
+        elif ws.cell(row=i, column=2).value == 'MH8':
+            ws.cell(row=i, column=2).value = 'MH8 S30'
+        if ws.cell(row=i, column=2).value == 'MR0':
+            ws.cell(row=i, column=2).value = 'M20'
+        elif 'Ab' in ws.cell(row=i, column=1).value:
+            ws.cell(row=i, column=2).value = 'POT MIN'
+        elif ws.cell(row=i, column=2).value == 'BETON':
+            ws.cell(row=i, column=2).value = 'EDF'
+
     if ws.cell(row=i, column=19).value in ['L1092-11', 'L1092-13', 'L1092-14', 'L1092-15']:
         ws.cell(row=i, column=19).value = ws.cell(row=i, column=19).value + '-A'
         ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
     elif ws.cell(row=i, column=19).value == 'L1092-12-P':
         ws.cell(row=i, column=19).value = 'L1092-12-A'
         ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    else:
-        continue
-
-# Fill in specific cases
-ws.cell(row=1, column=3).value = ''
-ws.cell(row=1, column=6).value = ''
-ws.cell(row=2, column=3).value = 'ORANGE'
-ws.cell(row=2, column=6).value = 'SADE TELECOM'
-ws.cell(row=4, column=4).value = 'Oui'
-ws.cell(row=4, column=7).value = 'Oui'
-ws.cell(row=6, column=4).value = 'A1'
-ws.cell(row=6, column=5).value = 'B1'
-ws.cell(row=3, column=3).value = commune
-ws.cell(row=3, column=7).value = insee
 
 wb.save(wbk_name)
-wb.close
