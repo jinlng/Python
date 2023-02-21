@@ -1,6 +1,5 @@
 # Import the openpyxl library for working with Excel files
 import openpyxl
-
 # Import the l93_to_wgs84 function from the coordinates_converter.py file
 from coordinates_converter import l93_to_wgs84
 
