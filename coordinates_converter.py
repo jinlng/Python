@@ -4,31 +4,22 @@ from pyproj import Transformer
 # Create a transformer object that can convert coordinates from the Lambert-93 to WGS84 projection
 transformer = Transformer.from_crs("epsg:2154", "epsg:4326")
 
-# Define a function to convert decimal latitude values to degrees, minutes, and seconds format
-def decimal_to_dms_lat(decimal_degrees):
-    # Convert the decimal degree value to a positive value
-    abs_degrees = abs(decimal_degrees)
-    # Extract the integer degrees
-    degrees = int(abs_degrees)
-    # Calculate the decimal minutes
-    decimal_minutes = (abs_degrees - degrees) * 60
-    # Format the result as degrees and decimal minutes with N/S direction
-    if decimal_degrees >= 0:
-        direction = "N"
-    else:
-        direction = "S"
-    return f"{degrees}°{decimal_minutes:.3f}'{direction}"
+# Define a function to convert decimal latitude/longitude values to degrees, minutes, and seconds format
+def decimal_to_dms_lat(latitude):
+    abs_latitude = abs(latitude)
+    degrees = int(abs_latitude)
+    minutes = int((abs_latitude - degrees) * 60)
+    seconds = round((abs_latitude - degrees - minutes / 60) * 3600, 4)
+    direction = "N" if latitude >= 0 else "S"
+    return f"{degrees}°{minutes:02d}'{seconds:.4f}\"{direction}"
 
-# Define a function to convert decimal longitude values to degrees, minutes, and seconds format
-def decimal_to_dms_lon(decimal):
-    d = int(decimal)
-    m = int((decimal - d) * 60)
-    s = (decimal - d - m/60) * 3600.0000000
-    z = round(s, 4)
-    if decimal >= 0:
-        return f"{abs(d)}°{abs(m)}'{abs(z)}\"E"
-    else:
-        return f"{abs(d)}°{abs(m)}'{abs(z)}\"W"
+def decimal_to_dms_lon(longitude):
+    abs_longitude = abs(longitude)
+    degrees = int(abs_longitude)
+    minutes = int((abs_longitude - degrees) * 60)
+    seconds = round((abs_longitude - degrees - minutes / 60) * 3600, 4)
+    direction = "E" if longitude >= 0 else "W"
+    return f"{degrees}°{minutes:02d}'{seconds:.4f}\"{direction}"
         
 # Define a function to convert Lambert-93 coordinates to WGS84 latitude and longitude values
 def l93_to_wgs84(x, y):
@@ -47,7 +38,7 @@ def l93_to_wgs84(x, y):
 
 
 # Example usage of the functions with a single set of coordinates
-x = 524795.419666301
-y = 6809542.08749356
+x = 491966.081673669
+y = 6823056.68796353
 result = l93_to_wgs84(x, y)
 print(result[0], result[1])

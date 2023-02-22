@@ -4,12 +4,12 @@ import openpyxl
 from coordinates_converter import l93_to_wgs84
 
 # Define the path to the input Excel file
-wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/BLM/31600/Tableau CAP FT.xlsx"
+wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/FGE/31373/Tableau CAP FT.xlsx"
 
 # Define the commune name and INSEE code
-commune = " "
-insee = ' '
-adresse = " "
+commune = "Semallé "
+insee = '61467'
+adresse = " D307 / D503 "
 
 # Modification of the types
 mapping_dict = {
@@ -57,6 +57,14 @@ last_row = ws.max_row
 
 # Convert Lambert 93 coordinates to WGS84 (latitude, longitude) and update the worksheet
 for i in range(9, last_row+1):
+    if ws.cell(row=i, column=19).value in ['L1092-11', 'L1092-13', 'L1092-14', 'L1092-15']:
+        ws.cell(row=i, column=19).value = ws.cell(row=i, column=19).value + '-A'
+        ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
+    elif ws.cell(row=i, column=19).value == 'L1092-12-P':
+        ws.cell(row=i, column=19).value = 'L1092-12-A'
+        ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
+    else:
+        continue
     # Check if the first column of the current row is not empty and if the fourth column is a float
     if ws.cell(row=i, column=1).value is not None and type(ws.cell(row=i, column=4).value) is float:
         # Get the Lambert 93 coordinates from the fourth and fifth columns of the current row
@@ -109,14 +117,7 @@ for i in range(9, last_row+1):
             ws.cell(row=i, column=2).value = 'POT MIN'
         else:
             continue
-    if ws.cell(row=i, column=19).value in ['L1092-11', 'L1092-13', 'L1092-14', 'L1092-15']:
-        ws.cell(row=i, column=19).value = ws.cell(row=i, column=19).value + '-A'
-        ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    elif ws.cell(row=i, column=19).value == 'L1092-12-P':
-        ws.cell(row=i, column=19).value = 'L1092-12-A'
-        ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    else:
-        continue
+
 
 # Fill in specific cases
 ws.cell(row=1, column=3).value = ''
