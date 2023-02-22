@@ -18,7 +18,7 @@ def select_and_copy(folder_org, folder_new, keyword):
         for dirname in dirnames:
             select_and_copy(os.path.join(dirpath, dirname), folder_new, keyword)
 
-dir_src = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/LCN/31286"
+dir_src = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/LCN/31289/CAPFT"
 dir_new = "C:/Users/liang.jingyi/Documents/test_new"
 keyword = "FicheAppui"
 
