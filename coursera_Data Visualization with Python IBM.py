@@ -1,8 +1,8 @@
 # Import required libraries
 import pandas as pd
 import dash
-import dash_html_components as html
-import dash_core_components as dcc
+from dash import html
+from dash import dcc
 from dash.dependencies import Input, Output, State
 import plotly.graph_objects as go
 import plotly.express as px
@@ -132,36 +132,37 @@ app.layout = html.Div(children=[
         html.Div([], id='plot3')
     ], style={'display': 'flex'}),
 
+    # TASK3: Add a division with two empty divisions inside. See above disvision for example.
+    # Enter your code below. Make sure you have correct formatting.
     html.Div([
         html.Div([], id='plot4'),
         html.Div([], id='plot5')
     ], style={'display': 'flex'})
+
 ])
-    # TASK3: Add a division with two empty divisions inside. See above disvision for example.
-    # Enter your code below. Make sure you have correct formatting.
 
-    # Callback function definition
-    # TASK4: Add 5 ouput components
-    # Enter your code below. Make sure you have correct formatting.
-@ app.callback(
+
+# Callback function definition
+# TASK4: Add 5 ouput components
+# Enter your code below. Make sure you have correct formatting.
+@app.callback(
     [Output('plot1', 'children'),
-        Output('plot2', 'children'),
-        Output('plot3', 'children'),
-        Output('plot4', 'children'),
-        Output('plot5', 'children')],
-        [Input(component_id='input-type', component_property='value'),
-         Input(component_id='input-year', component_property='value')],
-        # REVIEW4: Holding output state till user enters all the form information. In this case, it will be chart type and year
-        [State("plot1", 'children'), State("plot2", "children"),
-         State("plot3", "children"), State("plot4", "children"),
-         State("plot5", "children")]
-    )
-
-
+     Output('plot2', 'children'),
+     Output('plot3', 'children'),
+     Output('plot4', 'children'),
+     Output('plot5', 'children')],
+    [Input(component_id='input-type', component_property='value'),
+     Input(component_id='input-year', component_property='value')],
+    # REVIEW4: Holding output state till user enters all the form information. In this case, it will be chart type and year
+    [State("plot1", 'children'), State("plot2", "children"),
+     State("plot3", "children"), State("plot4", "children"),
+     State("plot5", "children")]
+)
 # Add computation to callback function and return graph
-
-
 def get_graph(chart, year, children1, children2, c3, c4, c5):
+    if chart is None or year is None:
+        return no_update(), no_update(), no_update()
+
     # Select data
     df = airline_data[airline_data['Year'] == int(year)]
 
