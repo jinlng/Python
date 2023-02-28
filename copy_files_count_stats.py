@@ -2,7 +2,7 @@ import os
 import shutil
 import pandas as pd
 
-folder_org = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/LCN/31295"
+folder_org = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/LCN"
 folder_new = "C:/Users/liang.jingyi/Documents/test_new"
 keyword = "FicheAppui"
 
