@@ -1,4 +1,4 @@
-### coursera_Data Visualization with Python IBM ###
+### Coursera Data Visualization with Python IBM ###
 
 # Import libraries
 import pandas as pd
