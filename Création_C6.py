@@ -7,7 +7,7 @@ from coordinates_converter import l93_to_wgs84
 wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/CPA/35453/Tableau CAP FT.xlsx"
 
 # Define the commune name and INSEE code
-commune = "Semallé"
+commune = " "
 insee = '61467'
 adresse = " D307 "
 
