@@ -1,4 +1,4 @@
-# /coursera course Data Visualization with Python IBM
+# coursera course Data Visualization with Python IBM
 # Import required libraries
 import pandas as pd
 import dash
