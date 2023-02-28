@@ -1,4 +1,4 @@
-# Import required libraries
+# Import libraries
 import pandas as pd
 import dash
 from dash import html
