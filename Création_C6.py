@@ -1,3 +1,4 @@
+# update a version of prep_C6 specifically for création d'artère
 # Import the openpyxl library for working with Excel files
 import openpyxl
 # Import the l93_to_wgs84 function from the coordinates_converter.py file
