@@ -24,7 +24,6 @@ def count_files(folder_org, folder_new, keyword):
         for filename in filenames:
             if keyword in filename:
                 try:
-                    shutil.copy(os.path.join(dirpath, filename), os.path.join(folder_new, filename))
                     count += 1
                 except (shutil.SameFileError, PermissionError):
                     pass
