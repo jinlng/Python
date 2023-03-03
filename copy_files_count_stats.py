@@ -1,8 +1,6 @@
 import os
 import shutil
 import pandas as pd
-import numpy as np
-import math
 
 folder_org = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/PAS/31327"
 folder_new = "C:/Users/liang.jingyi/Documents/test_new"
