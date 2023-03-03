@@ -2,7 +2,7 @@ import os
 import shutil
 import pandas as pd
 
-folder_org = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/LCN/31297"
+folder_org = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/PAS/31327"
 folder_new = "C:/Users/liang.jingyi/Documents/test_new"
 keyword = "FicheAppui"
 
@@ -10,9 +10,10 @@ keyword = "FicheAppui"
 recap_file = os.path.join(folder_org, "recap.xlsx")
 df = pd.read_excel(recap_file)
 
-# Extract the values in column J and convert them into a list
-numbers = df.iloc[:, 9].astype(str).tolist()
-
+# Extract the values in column J + K and convert them into a list
+numbers = [str(int(x)) if not np.isnan(x) else '' for x in df.iloc[:, 9:11].values.flatten()]
+print(type(numbers))
+print(numbers[0])
 # Count the number of times the keyword appears in column H
 numbers_KO = df.iloc[:, 7].str.contains("REMPLACEMENT", na=False).sum()
 
@@ -42,7 +43,7 @@ def select_and_copy(folder_org, folder_new, keyword, numbers):
                 try:
                     shutil.copy(os.path.join(dirpath, filename), os.path.join(folder_new, filename))
                     copied_files.add(filename)
-                    print(f"Copied file: {filename}")
+                    #print(f"Copied file: {filename}")
                 except (shutil.SameFileError, PermissionError):
                     pass
                 except Exception as e:
