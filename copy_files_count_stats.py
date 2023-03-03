@@ -1,6 +1,8 @@
 import os
 import shutil
 import pandas as pd
+import numpy as np
+import math
 
 folder_org = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/PAS/31327"
 folder_new = "C:/Users/liang.jingyi/Documents/test_new"
@@ -11,9 +13,8 @@ recap_file = os.path.join(folder_org, "recap.xlsx")
 df = pd.read_excel(recap_file)
 
 # Extract the values in column J + K and convert them into a list
-numbers = [str(int(x)) if not np.isnan(x) else '' for x in df.iloc[:, 9:11].values.flatten()]
-print(type(numbers))
-print(numbers[0])
+numbers = [str(int(x)) for x in df.iloc[:, 9:11].values.flatten() if pd.notna(x) and str(x).strip()]
+
 # Count the number of times the keyword appears in column H
 numbers_KO = df.iloc[:, 7].str.contains("REMPLACEMENT", na=False).sum()
 
