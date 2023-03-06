@@ -5,12 +5,12 @@ import openpyxl
 from coordinates_converter import l93_to_wgs84
 
 # Define the path to the input Excel file
-wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/CPA/35453/Tableau CAP FT.xlsx"
+wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/FLE/FLE-20856/Maudouet/Tableau CAP FT.xlsx"
 
 # Define the commune name and INSEE code
-commune = " "
-insee = '61467'
-adresse = " D307 "
+commune = "St-André-de-Messei"
+insee = '61362'
+adresse = "Lieu dit Maudouet / l'Être au Moine"
 
 # Modification of the types
 mapping_dict = {
@@ -57,22 +57,19 @@ except Exception as e:
 last_row = ws.max_row
 
 # Convert Lambert 93 coordinates to WGS84 (latitude, longitude) and update the worksheet
-for i in range(9, last_row+1):
-    if ws.cell(row=i, column=19).value in ['L1092-11', 'L1092-13', 'L1092-14']:
-        ws.cell(row=i, column=19).value = ws.cell(row=i, column=19).value + '-A'
+for i in range(9, last_row + 1):
+    value = ws.cell(row=i, column=19).value
+    if value in ['L1092-11', 'L1092-13', 'L1092-14']:
+        value += '-A'
+    elif value == 'L1092-15':
+        value = 'L1092-15-S'
+    elif value == 'L1092-12-P':
+        value = 'L1092-12-A'
+    if value != ws.cell(row=i, column=19).value:
+        ws.cell(row=i, column=19).value = value
         ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    elif ws.cell(row=i, column=19).value == 'L1092-15':
-        ws.cell(row=i, column=19).value = 'L1092-15-S'
-        ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    elif ws.cell(row=i, column=19).value == 'L1092-12-P':
-        ws.cell(row=i, column=19).value = 'L1092-12-A'
-        ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    elif ws.cell(row=i, column=19).value == 'Liaison':
-        ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    else:
-        continue
-    # Check if the first column of the current row is not empty and if the fourth column is a float
-    if ws.cell(row=i, column=1).value is not None and type(ws.cell(row=i, column=4).value) is float:
+
+    if ws.cell(row=i, column=1).value and isinstance(ws.cell(row=i, column=4).value, float):
         # Get the Lambert 93 coordinates from the fourth and fifth columns of the current row
         x = ws.cell(row=i, column=4).value
         y = ws.cell(row=i, column=5).value
@@ -81,11 +78,8 @@ for i in range(9, last_row+1):
         # Update the fourth and fifth columns of the current row with the converted WGS84 coordinates
         ws.cell(row=i, column=4).value = lat
         ws.cell(row=i, column=5).value = lon
-    else:
-        # If the first column of the current row is empty or the fourth column is not a float, skip this row
-        continue
 
-# Fill in specific values
+# Fill in specific values and update the worksheet
 for i in range(9, last_row+1):
     if ws.cell(row=i, column=1).value is not None:
         # Fill in preset values in each line

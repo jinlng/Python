@@ -41,7 +41,7 @@ def l93_to_wgs84(x, y):
 
 
 # Example usage of the functions with a single set of coordinates
-x = 491966.081673669
-y = 6823056.68796353
+x = 426137.112436879
+y = 6832893.3016985
 result = l93_to_wgs84(x, y)
 print(result[0], result[1])
