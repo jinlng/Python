@@ -4,7 +4,7 @@ import openpyxl
 from coordinates_converter import l93_to_wgs84
 
 # Define the path to the input Excel file
-wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/... ./Tableau CAP FT.xlsx"
+wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/..../Tableau CAP FT.xlsx"
 
 # Define the commune name and INSEE code
 commune = "St-André-de-Messei"
