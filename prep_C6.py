@@ -1,17 +1,24 @@
+"""
+Title: prep_C6 for calcul de charges CAP FT
+Description: This code updates a version of prep_C6
+Author: Jingyi LIANG
+Date: May 8, 2023
+License: This code is the property of Jingyi LIANG. Unauthorized use or distribution is strictly prohibited.
+"""
+
 # Import the openpyxl library for working with Excel files
 import openpyxl
 # Import the l93_to_wgs84 function from the coordinates_converter.py file
 from coordinates_converter import l93_to_wgs84
 
 # Define the path to the input Excel file
-wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/.../Tableau CAP FT.xlsx"
+wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/LOA/29102/Tableau CAP FT.xlsx"
 
 # Define the commune name and INSEE code
-commune = "St-André-de-Messei"
-insee = '61362'
-adresse = "Lieu dit Maudouet / l'Être au Moine"
+commune = "Lonlay-l'Abbaye"
+insee = '61232'
+adresse = "Lieu dit la Douardière"
 
-# Modification of the types
 mapping_dict = {
     'Bois': 'BS7',
     'FR07': 'FL7',
@@ -40,7 +47,10 @@ mapping_dict = {
     'BH8': 'BH8 S30',
     'MH8': 'MH8 S30',
     'MR0': 'M20',
-    'BETON': 'EDF'
+    'BETON': 'EDF',
+    'ERDF': 'EDF',
+    'BT': 'EDF',
+    'Ab': 'POT MIN'
 }
 # Define the name of the worksheet to work with
 sheet_name = "Saisies terrain"
@@ -58,13 +68,17 @@ last_row = ws.max_row
 
 # Convert Lambert 93 coordinates to WGS84 (latitude, longitude) and update the worksheet
 for i in range(9, last_row+1):
-    if ws.cell(row=i, column=19).value in ['L1092-11', 'L1092-13', 'L1092-14', 'L1092-15']:
-        ws.cell(row=i, column=19).value += '-A'
+    value = ws.cell(row=i, column=19).value
+    if value in ['L1092-11', 'L1092-13', 'L1092-14']:
+        value += '-A'
+    elif value == 'L1092-15':
+        value = 'L1092-15-S'
+    elif value == 'L1092-12-P':
+        value = 'L1092-12-A'
+    if value != ws.cell(row=i, column=19).value:
+        ws.cell(row=i, column=19).value = value
         ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    elif ws.cell(row=i, column=19).value == 'L1092-12-P':
-        ws.cell(row=i, column=19).value = 'L1092-12-A'
-        ws.cell(row=i, column=19).font = openpyxl.styles.Font(bold=True)
-    elif ws.cell(row=i, column=1).value is not None and isinstance(ws.cell(row=i, column=4).value, float):
+    if ws.cell(row=i, column=1).value is not None and isinstance(ws.cell(row=i, column=4).value, float):
         # Convert the Lambert 93 coordinates to WGS84 (latitude, longitude) using the l93_to_wgs84 function
         lat, lon = l93_to_wgs84(ws.cell(row=i, column=4).value, ws.cell(row=i, column=5).value)
         # Update the fourth and fifth columns of the current row with the converted WGS84 coordinates
@@ -73,6 +87,7 @@ for i in range(9, last_row+1):
 
 # Fill in specific values and update the worksheet
 for i in range(9, last_row+1):
+    # for every poteau line
     if ws.cell(row=i, column=1).value is not None:
         # Fill in preset values in each line
         ws.cell(row=i, column=3).value = adresse
@@ -90,14 +105,7 @@ for i in range(9, last_row+1):
             40: 'Non',
         }.items():
             ws.cell(row=i, column=col).value = value
-    # fill temperature and flèche cases
-    if ws.cell(row=i, column=19).value is not None:
-        for col, value in {
-            23: '0',
-            24: '15',
-        }.items():
-            ws.cell(row=i, column=col).value = value
-        # Replace type names
+        # Replace poteau type names
         cell_value = ws.cell(row=i, column=2).value
         if cell_value in mapping_dict:
             ws.cell(row=i, column=2).value = mapping_dict[cell_value]
@@ -109,13 +117,15 @@ for i in range(9, last_row+1):
         if ws.cell(row=i, column=13).value == 'Oui' or not ws.cell(row=i, column=6).value:
             for j in range(6, 15):
                 ws.cell(row=i, column=j).value = 'Oui'
-        # check for EDF pillar and potelet
-        if 'BT' in str(ws.cell(row=i, column=1).value):
-            ws.cell(row=i, column=2).value = 'EDF'
-        elif 'Ab' in str(ws.cell(row=i, column=1).value):
-            ws.cell(row=i, column=2).value = 'POT MIN'
-        else:
-            continue
+
+    # fill temperature and flèche cases for every line
+    if ws.cell(row=i, column=19).value is not None:
+        for col, value in {
+            23: '0',
+            24: '15',
+        }.items():
+            ws.cell(row=i, column=col).value = value
+
 
 
 # Fill in specific cases

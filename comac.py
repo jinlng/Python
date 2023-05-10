@@ -1,3 +1,11 @@
+"""
+Title: Export Comac Prep
+Description: This code modifies files in a folder by updating specific columns based on conditions.
+Author: Jingyi LIANG
+Date: May 8, 2023
+License: This code is the property of Jingyi LIANG. Unauthorized use or distribution is strictly prohibited.
+"""
+
 import os
 import openpyxl
 

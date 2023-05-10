@@ -1,3 +1,11 @@
+"""
+Title: Coordinate Conversion Utility
+Description: This code converts coordinates from the Lambert-93 projection to WGS84 using pyproj library.
+Author: Jingyi LIANG
+Date: May 8, 2023
+License: This code is the property of Jingyi LIANG. Unauthorized use or distribution is strictly prohibited.
+"""
+
 # Import the pyproj library for coordinate transformations
 from pyproj import Transformer
 
@@ -41,7 +49,7 @@ def l93_to_wgs84(x, y):
 
 
 # Example usage of the functions with a single set of coordinates
-x = 426137.112436879
-y = 6832893.3016985
+x = 488193.697684623
+y = 6835737.74602665
 result = l93_to_wgs84(x, y)
 print(result[0], result[1])

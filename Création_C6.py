@@ -1,16 +1,23 @@
-# update a version of prep_C6 specifically for création d'artère
+"""
+Title: Update Version of prep_C6 for création d'artère
+Description: This code updates a version of prep_C6 specifically for création d'artère.
+Author: Jingyi LIANG
+Date: May 8, 2023
+License: This code is the property of Jingyi LIANG. Unauthorized use or distribution is strictly prohibited.
+"""
+
 # Import the openpyxl library for working with Excel files
 import openpyxl
 # Import the l93_to_wgs84 function from the coordinates_converter.py file
 from coordinates_converter import l93_to_wgs84
 
 # Define the path to the input Excel file
-wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/.../Tableau CAP FT.xlsx"
+wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/BRZ/37039/Tableau CAP FT.xlsx"
 
 # Define the commune name and INSEE code
-commune = "St-André-de-Messei"
-insee = '61362'
-adresse = "Lieu dit Maudouet / l'Être au Moine"
+commune = "Montchevrel"
+insee = '61284'
+adresse = "Bois Gaucher"
 
 # Modification of the types
 mapping_dict = {
@@ -40,7 +47,10 @@ mapping_dict = {
     'BH8': 'BH8 S30',
     'MH8': 'MH8 S30',
     'MR0': 'M20',
-    'BETON': 'EDF'
+    'BETON': 'EDF',
+    'ERDF': 'EDF',
+    'BT': 'EDF',
+    'Ab': 'POT MIN'
 }
 # Define the name of the worksheet to work with
 sheet_name = "Saisies terrain"

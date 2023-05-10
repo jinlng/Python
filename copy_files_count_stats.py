@@ -1,8 +1,17 @@
+"""
+Title: Copy Files with Keyword
+Description: This code copies files from a source folder to a destination folder based on a keyword and specific conditions.
+Author: Jingyi LIANG
+Date: May 8, 2023
+License: This code is the property of Jingyi LIANG. Unauthorized use or distribution is strictly prohibited.
+"""
+
 import os
 import shutil
 import pandas as pd
 
-folder_org = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/PDO/37828/D2"
+# Define the path to the input Excel file
+folder_org = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/PAS/31321/D2"
 folder_new = "C:/Users/liang.jingyi/Documents/test_new"
 keyword = "FicheAppui"
 
