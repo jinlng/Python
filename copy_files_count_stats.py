@@ -1,6 +1,9 @@
 """
 Title: Copy Files with Keyword
-Description: This code copies files from a source folder to a destination folder based on a keyword and specific conditions.
+Description:
+    This code is designed to copy files from a source folder to a destination folder based on a specified keyword and certain conditions.
+    It operates by utilizing a recap.xlsx file, which you need to create and fill in. Please note that in the recap.xlsx file,
+    the first line should be left empty to ensure that the first value is copied correctly to the new folder.
 Author: Jingyi LIANG
 Date: May 8, 2023
 License: This code is the property of Jingyi LIANG. Unauthorized use or distribution is strictly prohibited.

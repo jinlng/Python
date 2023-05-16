@@ -1,6 +1,9 @@
 """
 Title: prep_C6 for calcul de charges CAP FT
-Description: This code updates a version of prep_C6
+Description:
+    This code is designed to update Annex C6, initially with preset values.
+    However, it is important to note that each "poteau" (supporting post) will need to be determined on a case-by-case basis afterwards.
+    Additionally, the address details and path will need to be modified accordingly.
 Author: Jingyi LIANG
 Date: May 8, 2023
 License: This code is the property of Jingyi LIANG. Unauthorized use or distribution is strictly prohibited.

@@ -1,6 +1,11 @@
 """
 Title: Export Comac Prep
-Description: This code modifies files in a folder by updating specific columns based on conditions.
+Description:
+    This code is designed to modify multiple files within a folder, specifically those named with the keyword 'ExportComac'.
+    It updates specific columns in each file based on certain conditions, filling them with either 'D1' or 'D2' values.
+    (Since we no longer calculer those in 'D3', but if we do in the future, this code is prepared for 'D3' as well.)
+    However, there is a unknown bug in the code where each file needs to be individually saved before it can be accepted by apcom,
+    and this issue has not been resolved yet. Please be aware of this limitation while using the code.
 Author: Jingyi LIANG
 Date: May 8, 2023
 License: This code is the property of Jingyi LIANG. Unauthorized use or distribution is strictly prohibited.

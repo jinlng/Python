@@ -12,29 +12,19 @@ import openpyxl
 from coordinates_converter import l93_to_wgs84
 
 # Define the path to the input Excel file
-wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/BRZ/37039/Tableau CAP FT.xlsx"
+wbk_name = "C:/Users/liang.jingyi/Documents/CALCUL DE CHARGE/PAS/31320/Tableau CAP FT.xlsx"
 
 # Define the commune name and INSEE code
-commune = "Montchevrel"
-insee = '61284'
-adresse = "Bois Gaucher"
+commune = "Passais Villages"
+insee = '61324'
+adresse = "Lieu dit les Loges"
 
 # Modification of the types
 mapping_dict = {
-    'FR07': 'FL7',
-    'FR 07': 'FL7',
-    'FR 7': 'FL7',
-    'FR08': 'FL8',
-    'FR 08': 'FL8',
-    'FR 8': 'FL8',
-    'FR7_CREATION': 'FL7',
-    'FR8_CREATION': 'FL8',
     'CREATION_FC7 MAX': 'FC7 MAX',
     'CREATION_FC7': 'FC7 MAX',
     'CREATION_FC8 MAX': 'FC8 MAX',
     'CREATION_FC8': 'FC8 MAX',
-    'CREATION_FR7': 'FL7',
-    'CREATION_FR8': 'FL8',
     'CREATION_FL7': 'FL7',
     'CREATION_FL8': 'FL8',
     'CREATION_MI8': 'M28',
